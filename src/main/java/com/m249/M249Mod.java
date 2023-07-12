@@ -43,8 +43,9 @@ public class M249Mod
     // Creates a new food item with the id "examplemod:example_id", nutrition 1 and saturation 2
     public static final RegistryObject<Item> M249 = ITEMS.register("m249", () -> new M249(new Item.Properties().stacksTo(1)));
 
+
     // Creates a creative tab with the id "examplemod:example_tab" for the example item, that is placed after the combat tab
-    public static final RegistryObject<CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
+    public static final RegistryObject<CreativeModeTab> M249_TAB = CREATIVE_MODE_TABS.register("m249", () -> CreativeModeTab.builder()
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> M249.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
