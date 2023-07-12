@@ -1,4 +1,4 @@
-package com.example.examplemod;
+package com.m249;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
@@ -8,7 +8,6 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -41,7 +40,7 @@ public class M249Mod
     // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "examplemod" namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
     // Creates a new food item with the id "examplemod:example_id", nutrition 1 and saturation 2
-    public static final RegistryObject<Item> M249 = ITEMS.register("M249", () -> new Item(new Item.Properties().food(new FoodProperties.Builder()
+    public static final RegistryObject<Item> M249 = ITEMS.register("m249", () -> new Item(new Item.Properties().food(new FoodProperties.Builder()
             .alwaysEat().nutrition(1).saturationMod(2f).build())));
 
     // Creates a creative tab with the id "examplemod:example_tab" for the example item, that is placed after the combat tab
@@ -77,14 +76,6 @@ public class M249Mod
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
-        // Some common setup code
-        LOGGER.info("HELLO FROM COMMON SETUP");
-
-        if (M249Config.logDirtBlock)
-            LOGGER.info("DIRT BLOCK >> {}", ForgeRegistries.BLOCKS.getKey(Blocks.DIRT));
-
-        LOGGER.info(M249Config.magicNumberIntroduction + M249Config.magicNumber);
-
         M249Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
     }
 
@@ -92,7 +83,7 @@ public class M249Mod
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS)
-            event.accept(EXAMPLE_ITEM);
+            event.accept(M249);
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
