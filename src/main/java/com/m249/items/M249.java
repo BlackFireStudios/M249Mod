@@ -1,6 +1,6 @@
 package com.m249.items;
 
-import com.m249.entities.projectiles.EntityCustomBullet;
+//import com.m249.entities.projectiles.EntityCustomBullet;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.InteractionHand;
@@ -21,14 +21,14 @@ public class M249 extends Item {
         super(p_41383_);
     }
 
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player p, InteractionHand hand){
-        if (!Minecraft.getInstance().level.isClientSide) {
-            EntityCustomBullet bullet = new EntityCustomBullet(ModMain.CUSTOM_BULLET, world);
-            bullet.setPosition(player.getPosX(), player.getPosYEye(), player.getPosZ());
-            bullet.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 3.0F, 1.0F);
-            world.addEntity(bullet);
-        }
-        return super.use(level,p,hand);
-    }
+//    @Override
+//    public InteractionResultHolder<ItemStack> use(Level level, Player p, InteractionHand hand){
+//        if (!Minecraft.getInstance().level.isClientSide) {
+//            EntityCustomBullet bullet = new EntityCustomBullet(ModMain.CUSTOM_BULLET, world);
+//            bullet.setPosition(player.getPosX(), player.getPosYEye(), player.getPosZ());
+//            bullet.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 3.0F, 1.0F);
+//            world.addEntity(bullet);
+//        }
+//        return super.use(level,p,hand);
+//    }
 }

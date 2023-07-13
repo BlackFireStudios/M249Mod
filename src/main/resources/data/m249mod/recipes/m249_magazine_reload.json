@@ -1,22 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " # ",
-    "#G#",
+    "###",
+    "#M#",
     "###"
   ],
   "key": {
-    "G": {
-      "item": "minecraft:green_dye"
+    "M": {
+      "item": "m249mod:m249_magazine"
     },
     "#": {
-      "item": "minecraft:iron_ingot"
+      "item": "m249mod:bullet"
     }
   },
   "result": {
     "item": "m249mod:m249_magazine",
     "nbt": {
-        "Damage": 100
+        "Damage": 0
     }
   }
 }
