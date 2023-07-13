@@ -46,7 +46,7 @@ public class M249Mod
     //Creates a Deferred Register to hold EntityTypes
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Registries.ENTITY_TYPE,MODID);
     // Create new Items for use in crafting
-    public static final RegistryObject<Item> M249Magazine = ITEMS.register("m249_magazine", () -> new Item(new Item.Properties().durability(100).defaultDurability(100)));
+    public static final RegistryObject<Item> M249Magazine = ITEMS.register("m249_magazine", () -> new Item(new Item.Properties().durability(100)));
     public static final RegistryObject<Item> BulletCasing = ITEMS.register("bullet_casing", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> Bullet = ITEMS.register("bullet", () -> new Item(new Item.Properties()));
     //creates the M249 item
