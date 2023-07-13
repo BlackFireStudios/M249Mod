@@ -1,5 +1,6 @@
 package com.m249.items;
 
+import com.m249.M249Mod;
 import com.m249.entities.projectiles.EntityCustomBullet;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
@@ -24,11 +25,12 @@ public class M249 extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player p, InteractionHand hand){
         if (!Minecraft.getInstance().level.isClientSide) {
-            EntityCustomBullet bullet = new EntityCustomBullet(ModMain.CUSTOM_BULLET, world);
-            bullet.setPosition(player.getPosX(), player.getPosYEye(), player.getPosZ());
-            bullet.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 3.0F, 1.0F);
-            world.addEntity(bullet);
+            EntityCustomBullet bullet = new EntityCustomBullet(M249Mod.CUSTOM_BULLET, level);
+            bullet.setPos(p.getX(), p.getEyeY(), p.getZ());
+            bullet.shootFromRotation(p, p.getXRot(), p.getYRot(), 0.0F, 3.0F, 1.0F); ;
+            level.addFreshEntity(bullet);
         }
-        return super.use(level,p,hand);
+        this.damageItem(1)
+        return ;
     }
 }

@@ -1,8 +1,11 @@
 package com.m249;
 
+import com.m249.entities.projectiles.EntityCustomBullet;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -23,6 +26,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.ObjectHolder;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 import com.m249.items.*;
@@ -40,9 +44,16 @@ public class M249Mod
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
     // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "examplemod" namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
-    // Creates a new food item with the id "examplemod:example_id", nutrition 1 and saturation 2
-    public static final RegistryObject<Item> M249 = ITEMS.register("m249", () -> new M249(new Item.Properties().stacksTo(1)));
+    //Creates a Deferred Register to hold EntityTypes
+    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Registries.ENTITY_TYPE,MODID);
 
+    // Creates a new food item with the id "examplemod:example_id", nutrition 1 and saturation 2
+    public static final RegistryObject<Item> M249 = ITEMS.register("m249", () -> new M249(new Item.Properties().stacksTo(1).durability(100).defaultDurability(100)));
+    public static final RegistryObject<EntityType<EntityCustomBullet>> CUSTOM_BULLET = ENTITY_TYPES.register("bullet",
+            () -> EntityType.Builder.of(EntityCustomBullet::new, MobCategory.MISC)
+                    .sized(0.1F, 0.1F)
+                    .fireImmune()
+                    .build("m249mod:bullet"));
 
     // Creates a creative tab with the id "examplemod:example_tab" for the example item, that is placed after the combat tab
     public static final RegistryObject<CreativeModeTab> M249_TAB = CREATIVE_MODE_TABS.register("m249", () -> CreativeModeTab.builder()
@@ -51,6 +62,8 @@ public class M249Mod
             .displayItems((parameters, output) -> {
                 output.accept(M249.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
             }).build());
+
+    public static final EntityType<EntityCustomBullet> CUSTOM_BULLET =
 
     public M249Mod()
     {
@@ -69,7 +82,6 @@ public class M249Mod
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
         // Register the item to a creative tab
-        modEventBus.addListener(this::addCreative);
 
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, M249Config.SPEC);
@@ -79,14 +91,6 @@ public class M249Mod
     {
         M249Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
     }
-
-    // Add the example block item to the building blocks tab
-    private void addCreative(BuildCreativeModeTabContentsEvent event)
-    {
-        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS)
-            event.accept(M249);
-    }
-
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event)
