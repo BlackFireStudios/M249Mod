@@ -35,6 +35,7 @@ import com.m249.items.*;
 @Mod(M249Mod.MODID)
 public class M249Mod
 {
+    public static boolean hasregistered;
     // Define mod id in a common place for everything to reference
     public static final String MODID = "m249mod";
     // Directly reference a slf4j logger
@@ -71,6 +72,7 @@ public class M249Mod
             }).build());
     public M249Mod()
     {
+        hasregistered = false;
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         // Register the commonSetup method for modloading
