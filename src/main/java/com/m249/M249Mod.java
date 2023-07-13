@@ -1,5 +1,6 @@
 package com.m249;
 
+import com.m249.entities.projectiles.EntityCustomBullet;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
@@ -35,7 +36,7 @@ public class M249Mod
     // Define mod id in a common place for everything to reference
     public static final String MODID = "m249mod";
     // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
     // Create a Deferred Register to hold Blocks which will all be registered under the "examplemod" namespace
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
     // Create a Deferred Register to hold Items which will all be registered under the "examplemod" namespace
@@ -44,14 +45,11 @@ public class M249Mod
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
     //Creates a Deferred Register to hold EntityTypes
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Registries.ENTITY_TYPE,MODID);
-
-    // Creates a new food item with the id "examplemod:example_id", nutrition 1 and saturation 2
-    public static final RegistryObject<Item> M249 = ITEMS.register("m249", () -> new M249(new Item.Properties().stacksTo(1)));
     // Create new Items for use in crafting
     public static final RegistryObject<Item> M249Magazine = ITEMS.register("m249_magazine", () -> new Item(new Item.Properties().durability(100).defaultDurability(100)));
     public static final RegistryObject<Item> BulletCasing = ITEMS.register("bullet_casing", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> Bullet = ITEMS.register("bullet", () -> new Item(new Item.Properties()));
-
+    //creates the M249 item
     public static final RegistryObject<Item> M249 = ITEMS.register("m249", () -> new M249(new Item.Properties().stacksTo(1).durability(100).defaultDurability(100)));
     public static final RegistryObject<EntityType<EntityCustomBullet>> CUSTOM_BULLET = ENTITY_TYPES.register("bullet",
             () -> EntityType.Builder.of(EntityCustomBullet::new, MobCategory.MISC)
@@ -69,9 +67,6 @@ public class M249Mod
                 output.accept(Bullet.get());
                 output.accept(BulletCasing.get());
             }).build());
-
-    public static final EntityType<EntityCustomBullet> CUSTOM_BULLET =
-
     public M249Mod()
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -85,7 +80,7 @@ public class M249Mod
         ITEMS.register(modEventBus);
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
-
+        ENTITY_TYPES.register(modEventBus);
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
         // Register the item to a creative tab
