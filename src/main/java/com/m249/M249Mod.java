@@ -1,6 +1,7 @@
 package com.m249;
 
 import com.m249.entities.projectiles.EntityCustomBullet;
+import com.m249.renderer.EntityCustomBulletRenderer;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
@@ -13,6 +14,7 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -81,6 +83,7 @@ public class M249Mod
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
         ENTITY_TYPES.register(modEventBus);
+
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
         // Register the item to a creative tab
@@ -120,6 +123,10 @@ public class M249Mod
             // Some client setup code
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+        }
+        @SubscribeEvent
+        public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
+            event.registerEntityRenderer(CUSTOM_BULLET.get(), EntityCustomBulletRenderer::new);
         }
     }
 }

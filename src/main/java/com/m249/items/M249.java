@@ -26,7 +26,6 @@ public class M249 extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player p, InteractionHand hand){
         ItemStack i = p.getItemInHand(hand);
         if (true) {
-            M249Mod.LOGGER.debug("Test");
             EntityCustomBullet bullet = new EntityCustomBullet(M249Mod.CUSTOM_BULLET.get(), level);
             bullet.setPos(p.getX(), p.getEyeY(), p.getZ());
             level.addFreshEntity(bullet);
