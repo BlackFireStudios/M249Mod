@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "G#",
+    "##"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:gunpowder"
+    },
+    "#": {
+      "item": "minecraft:gold_nugget"
+    }
+  },
+  "result": {
+    "item": "m249mod:bullet_casing",
+    "count": 8
+  }
+}

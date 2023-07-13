@@ -42,6 +42,10 @@ public class M249Mod
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
     // Creates a new food item with the id "examplemod:example_id", nutrition 1 and saturation 2
     public static final RegistryObject<Item> M249 = ITEMS.register("m249", () -> new M249(new Item.Properties().stacksTo(1)));
+    // Create new Items for use in crafting
+    public static final RegistryObject<Item> M249Magazine = ITEMS.register("m249_magazine", () -> new Item(new Item.Properties().durability(100).defaultDurability(100)));
+    public static final RegistryObject<Item> BulletCasing = ITEMS.register("bullet_casing", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> Bullet = ITEMS.register("bullet", () -> new Item(new Item.Properties()));
 
 
     // Creates a creative tab with the id "examplemod:example_tab" for the example item, that is placed after the combat tab
@@ -50,6 +54,9 @@ public class M249Mod
             .icon(() -> M249.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 output.accept(M249.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+                output.accept(M249Magazine.get());
+                output.accept(Bullet.get());
+                output.accept(BulletCasing.get());
             }).build());
 
     public M249Mod()
@@ -83,7 +90,7 @@ public class M249Mod
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
-        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS)
+        if (event.getTabKey() == CreativeModeTabs.COMBAT)
             event.accept(M249);
     }
 
