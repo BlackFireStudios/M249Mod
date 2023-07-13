@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#C#",
+    "###"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:copper_ingot"
+    },
+    "#": {
+      "item": "m249mod:bullet_casing"
+    }
+  },
+  "result": {
+    "item": "m249mod:bullet",
+    "count": 8
+  }
+}
