@@ -1,28 +1,24 @@
 package com.m249.renderer;
 
-import com.m249.M249Mod;
 import com.m249.entities.projectiles.EntityCustomBullet;
 import com.m249.models.EntityCustomBulletModel;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.*;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import software.bernie.geckolib.cache.object.BakedGeoModel;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import software.bernie.geckolib.util.RenderUtils;
 
-public class EntityCustomBulletRenderer extends EntityRenderer<EntityCustomBullet> {
-    EntityCustomBulletModel<EntityCustomBullet> model;
-    public EntityCustomBulletRenderer(EntityRendererProvider.Context p_174008_) {
-        super(p_174008_);
-        model = new EntityCustomBulletModel<EntityCustomBullet>();
+public class EntityCustomBulletRenderer extends GeoEntityRenderer<EntityCustomBullet> {
+
+    public EntityCustomBulletRenderer(EntityRendererProvider.Context renderManager) {
+        super(renderManager, new EntityCustomBulletModel());
     }
     @Override
-    public ResourceLocation getTextureLocation(EntityCustomBullet b) {
-        return new ResourceLocation("entity/bullet.png");
-    }
-    public void render(EntityCustomBullet b, float pPartialTick, PoseStack pPoseStack,
-                       MultiBufferSource pBufferSource, int pPackedLight, int pPackedOverlay){
-        pPoseStack.pushPose();
-        model.renderToBuffer(pPoseStack, pBufferSource.getBuffer(RenderType.entitySolid(getTextureLocation(b))), pPackedLight,pPackedOverlay, 1,1,1,1);
-        pPoseStack.popPose();
+    public void preRender(PoseStack poseStack, EntityCustomBullet animatable, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue,
+                          float alpha) {
+        RenderUtils.faceRotation(poseStack, animatable, partialTick);
+        super.preRender(poseStack, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }

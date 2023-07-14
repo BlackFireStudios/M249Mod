@@ -1,14 +1,20 @@
 package com.m249;
 
 import com.m249.entities.projectiles.EntityCustomBullet;
+import com.m249.items.M249;
 import com.m249.renderer.EntityCustomBulletRenderer;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.damagesource.DamageEffects;
+import net.minecraft.world.damagesource.DamageScaling;
+import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.damagesource.DeathMessageType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -30,7 +36,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
-import com.m249.items.*;
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(M249Mod.MODID)
 public class M249Mod
@@ -48,6 +53,12 @@ public class M249Mod
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
     //Creates a Deferred Register to hold EntityTypes
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Registries.ENTITY_TYPE,MODID);
+    // Creates a Deferred Register to hold SoundEvents
+    public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(Registries.SOUND_EVENT, MODID);
+    // Creates a new sound for shooting the M249
+    public static final RegistryObject<SoundEvent> M249SOUND = SOUNDS.register("m249",()-> SoundEvent.createFixedRangeEvent(new ResourceLocation(MODID, "m249"),200));
+    // Creates a new DamageType for guns
+    public static final ResourceKey<DamageType> GUNDMG = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(MODID,"gun"));
     // Create new Items for use in crafting
     public static final RegistryObject<Item> M249Magazine = ITEMS.register("m249_magazine", () -> new Item(new Item.Properties().durability(100)));
     public static final RegistryObject<Item> BulletCasing = ITEMS.register("bullet_casing", () -> new Item(new Item.Properties()));
@@ -85,7 +96,7 @@ public class M249Mod
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
         ENTITY_TYPES.register(modEventBus);
-
+        SOUNDS.register(modEventBus);
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
         // Register the item to a creative tab

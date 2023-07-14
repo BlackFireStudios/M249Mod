@@ -2,19 +2,20 @@ package com.m249.items;
 
 import com.m249.M249Mod;
 import com.m249.entities.projectiles.EntityCustomBullet;
-import com.mojang.logging.LogUtils;
-import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Rotations;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.Arrow;
-import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.client.model.generators.ModelBuilder;
+import net.minecraftforge.gametest.BlockPosValueConverter;
 
 public class M249 extends Item {
 
@@ -27,9 +28,11 @@ public class M249 extends Item {
         ItemStack i = p.getItemInHand(hand);
         if (true) {
             EntityCustomBullet bullet = new EntityCustomBullet(M249Mod.CUSTOM_BULLET.get(), level);
-            bullet.setPos(p.getX(), p.getEyeY(), p.getZ());
+            bullet.setPos(new Vec3(p.getX(), p.getY(), p.getZ()));
+            bullet.shoot(p,1);
             level.addFreshEntity(bullet);
-            this.damageItem(i,1,p,player -> {});
+            level.playLocalSound(p.getX(), p.getY(),p.getZ(),M249Mod.M249SOUND.get(), SoundSource.PLAYERS,10,10,true);
+            if(!p.isCreative()) i.hurt(1, RandomSource.create(),null);
         }
 
         return super.use(level,p,hand);
