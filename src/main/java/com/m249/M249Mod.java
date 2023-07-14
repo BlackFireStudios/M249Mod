@@ -60,7 +60,7 @@ public class M249Mod
     // Creates a new DamageType for guns
     public static final ResourceKey<DamageType> GUNDMG = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(MODID,"gun"));
     // Create new Items for use in crafting
-    public static final RegistryObject<Item> M249Magazine = ITEMS.register("m249_magazine", () -> new Item(new Item.Properties().durability(100)));
+    public static final RegistryObject<Item> M249Magazine = ITEMS.register("m249_magazine", () -> new Item(new Item.Properties().defaultDurability(100).durability(100)));
     public static final RegistryObject<Item> BulletCasing = ITEMS.register("bullet_casing", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> Bullet = ITEMS.register("bullet", () -> new Item(new Item.Properties()));
     //creates the M249 item

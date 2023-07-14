@@ -4,6 +4,5 @@
   "item.m249mod.bullet_casing": "Bullet Casing",
   "item.m249mod.bullet": "Bullet",
   "tab.m249mod.m249": "M249",
-  "death.attack.gun.player": "%1$s\uD83D\uDD2B%2$s",
-  "death.attack.gun.item": "%1$s\uD83D\uDD2B M249 %2$s"
+  "death.attack.gun": "%1$s \uD83D\uDD2B %2$s"
 }

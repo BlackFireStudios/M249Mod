@@ -28,8 +28,9 @@ import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class EntityCustomBullet extends AbstractHurtingProjectile implements GeoEntity {
-    Entity owner;
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+    private double force;
+
     public EntityCustomBullet(EntityType<EntityCustomBullet> entityType, Level level) {
         super(entityType, level);
     }
@@ -70,17 +71,43 @@ public class EntityCustomBullet extends AbstractHurtingProjectile implements Geo
     }
     public void shoot(Entity p,double force){
         this.setOwner(p);
-        this.setRot(p.getXRot(),p.getYRot());
+        this.force=force;
+        this.setRot(p.getYRot(),p.getXRot());
         this.setDeltaMovement(p.getDeltaMovement().add(p.getLookAngle().multiply(force,force,force)));
     }
     @Override
     public void onHitEntity(EntityHitResult h){
-        M249Mod.LOGGER.debug("onHitEntity");
-        h.getEntity().hurt(new DamageSource(this.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(M249Mod.GUNDMG)),6);
+        Entity e  = h.getEntity();
+        Vec3 epos = new Vec3(e.getX(),e.getY()+e.getEyeHeight(),e.getZ());
+        Vec3 v = this.getDeltaMovement();
+        Vec3 p = new Vec3(this.getX(), this.getY(), this.getZ());
+        double dis = (epos.subtract(p).cross(v).length())/v.length();
+        //M249Mod.LOGGER.debug("Distance:"+dis);
+        if(dis<=0.4)h.getEntity().hurt(new DamageSource(this.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(M249Mod.GUNDMG)), (float) (24*(this.getDeltaMovement().length()/force)));
+        else h.getEntity().hurt(new DamageSource(this.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(M249Mod.GUNDMG)),(float) (6*(this.getDeltaMovement().length()/force)));
     }
     @Override
     public void onHitBlock(BlockHitResult h){
+        Vec3 mid = h.getBlockPos().getCenter();
         this.setDeltaMovement(this.getDeltaMovement().multiply(0.5,0.5,0.5));
+        if(this.getDeltaMovement().length()<0.1)this.setDeltaMovement(Vec3.ZERO);
+    }
+    private double axis(Vec3 in, int a){
+        switch(a){
+            case 0:
+                return in.x;
+            case 1:
+                return in.y;
+            case 2:
+                return in.z;
+            default:
+                return 0;
+        }
+    }
+    private int getLargestAxis(Vec3 in){
+        if(in.x>=in.y&&in.x>=in.z) return 0;
+        else if (in.y>=in.z&&in.y>=in.x) return 1;
+        else return 2;
     }
     @Override
     public void tick() {
@@ -99,5 +126,9 @@ public class EntityCustomBullet extends AbstractHurtingProjectile implements Geo
         } else {
             this.discard();
         }
+    }
+    @Override
+    public boolean hurt(DamageSource d, float dmg){
+        return false;
     }
 }
