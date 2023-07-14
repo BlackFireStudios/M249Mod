@@ -1,22 +1,40 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "###",
-    "#M#",
-    "###"
-  ],
-  "key": {
-    "M": {
-      "item": "m249mod:m249_magazine"
-    },
-    "#": {
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
       "item": "m249mod:bullet"
+    },
+    {
+      "item": "m249mod:bullet"
+    },
+    {
+      "item": "m249mod:bullet"
+    },
+    {
+      "item": "m249mod:bullet"
+    },
+    {
+      "item": "m249mod:bullet"
+    },
+    {
+      "item": "m249mod:bullet"
+    },
+    {
+      "item": "m249mod:bullet"
+    },
+    {
+      "item": "m249mod:bullet"
+    },
+    {
+      "type": "forge:nbt",
+      "item": "m249mod:m249_magazine",
+      "nbt": {
+        "Damage": 100
+      }
     }
-  },
+  ],
   "result": {
-    "item": "m249mod:m249_magazine",
-    "nbt": {
-        "Damage": 0
-    }
+    "item": "m249mod:m249_magazine"
   }
 }
+

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "type": "forge:nbt",
+      "item": "m249mod:m249",
+      "nbt": {
+        "Damage": 100
+      }
+    },
+    {
+      "type": "forge:nbt",
+      "item": "m249mod:m249_magazine",
+      "nbt": {
+        "Damage": 0
+      }
+    }
+  ],
+  "result": {
+    "item": "m249mod:m249"
+  }
+}
+

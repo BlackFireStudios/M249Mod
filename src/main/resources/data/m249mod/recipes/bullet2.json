@@ -1,17 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "C",
-    "#"
-  ],
-  "key": {
-    "C": {
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
       "tag": "forge:nuggets/copper"
     },
-    "#": {
+    {
       "item": "m249mod:bullet_casing"
     }
-  },
+  ],
   "result": {
     "item": "m249mod:bullet"
   }
