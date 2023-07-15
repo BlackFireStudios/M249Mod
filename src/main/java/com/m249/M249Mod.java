@@ -63,7 +63,10 @@ public class M249Mod
     public static final RegistryObject<Item> M249Magazine = ITEMS.register("m249_magazine", () -> new Item(new Item.Properties().defaultDurability(100).durability(100)));
     public static final RegistryObject<Item> BulletCasing = ITEMS.register("bullet_casing", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> Bullet = ITEMS.register("bullet", () -> new Item(new Item.Properties()));
-    //creates the M249 item
+    public static final RegistryObject<Item> Barrel = ITEMS.register("barrel", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> M249_Receiver = ITEMS.register("m249_receiver", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> Stock = ITEMS.register("stock", () -> new Item(new Item.Properties()));
+     //creates the M249 item
     public static final RegistryObject<Item> M249 = ITEMS.register("m249", () -> new M249(new Item.Properties().stacksTo(1).durability(100).defaultDurability(100)));
     public static final RegistryObject<EntityType<EntityCustomBullet>> CUSTOM_BULLET = ENTITY_TYPES.register("bullet",
             () -> EntityType.Builder.of(EntityCustomBullet::new, MobCategory.MISC)

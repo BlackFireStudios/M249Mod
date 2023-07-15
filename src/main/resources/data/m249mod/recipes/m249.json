@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "BbS",
+    "   "
+  ],
+  "key": {
+    "B": {
+      "item": "m249mod:barrel"
+    },
+    "b": {
+      "item": "m249mod:m249_receiver"
+    },
+    "S": {
+      "item": "m249mod:stock"
+    }
+  },
+  "result": {
+    "item": "m249mod:m249",
+    "nbt": {
+      "Damage": 100
+    }
+  }
+}
